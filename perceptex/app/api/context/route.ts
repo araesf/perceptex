@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../../generated/prisma";
+import { PrismaClient } from "../../generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 // Create a PrismaClient instances
