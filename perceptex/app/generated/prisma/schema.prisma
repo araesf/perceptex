@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma" // Consider using "node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String            @id @default(uuid())
+  name           String?
+  email          String            @unique
+  contexts       ContextSnapshot[]
+  goals          Goal[]
+  habits         Habit[]
+  suggestions    Suggestion[]
+  calendarEvents CalendarEvent[]
+  reminders      Reminder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContextSnapshot {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  timestamp DateTime @default(now())
+  source    String // e.g., "browser_extension", "google_calendar_sync", "manual_input", "email_parser"
+  data      Json // Flexible JSON field to store various context data structures
+  // Optional: Add embeddings for semantic search later
+  // embedding Bytes? 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Goal {
+  id          String    @id @default(uuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  status      String // e.g., "todo", "in_progress", "completed", "archived"
+  dueDate     DateTime?
+  priority    Int? // e.g., 1 (High), 2 (Medium), 3 (Low)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Habit {
+  id          String  @id @default(uuid())
+  userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  frequency   String // e.g., "daily", "weekly", "weekdays", "custom_cron_expression"
+  // Optional: Add fields for specific times, check-in history, etc.
+  // lastCheckedInAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Suggestion {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String // e.g., "time_block_calendar", "new_task", "reminder_creation", "goal_checkin"
+  content   Json // Detailed content of the suggestion, could be text or structured data
+  status    String // e.g., "pending", "accepted", "rejected", "snoozed"
+  metadata  Json? // Any additional data, like source context ID, AI confidence, etc.
+  expiresAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CalendarEvent {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  isAllDay    Boolean  @default(false)
+  location    String?
+  source      String // e.g., "manual", "suggestion_accepted", "google_calendar_sync"
+  externalId  String?  @unique // For syncing with external calendars like Google Calendar
+  // Optional: Add attendees, recurrence rules, etc.
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reminder {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  remindAt    DateTime
+  status      String // e.g., "pending", "completed", "snoozed"
+  // Optional: Add recurrence, link to a specific goal or task
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
