@@ -49,3 +49,46 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to create context snapshot', details: (error as Error).message }, { status: 500 });
   }
 }
+
+// This function handles HTTP GET requests made to /api/context
+export async function GET(request: NextRequest) {
+  try {
+    // 1. Parse Query Parameters:
+    // For GET requests, data is often passed in the URL as query parameters (e.g., /api/context?userId=123).
+    // 'new URL(request.url)' creates a URL object from the request's URL string.
+    // '.searchParams' gives you access to the query parameters.
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId'); // Get the value of the 'userId' query parameter.
+
+    // 2. Validate Input (Check for userId):
+    // In this example, we're making 'userId' a required parameter for fetching context snapshots.
+    if (!userId) {
+      return NextResponse.json({ error: 'userId query parameter is required' }, { status: 400 });
+    }
+
+    // 3. Interact with the Database (Fetch records):
+    // 'prisma.contextSnapshot.findMany()' is a Prisma method to retrieve multiple records.
+    const contextSnapshots = await prisma.contextSnapshot.findMany({
+      // The 'where' option is used to filter the records.
+      // Here, we're finding all snapshots where the 'userId' field matches the provided 'userId'.
+      where: {
+        userId: userId,
+      },
+      // The 'orderBy' option sorts the results.
+      // Here, we're sorting by the 'timestamp' field in descending order (newest first).
+      orderBy: {
+        timestamp: 'desc',
+      },
+    });
+
+    // 4. Send a Success Response:
+    // Return the array of found context snapshots as a JSON response.
+    // The default status code for a successful GET is 200 (OK).
+    return NextResponse.json(contextSnapshots);
+
+  } catch (error) {
+    // 5. Handle Errors:
+    console.error('Error fetching context snapshots:', error);
+    return NextResponse.json({ error: 'Failed to fetch context snapshots', details: (error as Error).message }, { status: 500 });
+  }
+}
