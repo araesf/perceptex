@@ -2,8 +2,6 @@
 
 > **AI-powered context that turns your digital clutter into structure.**
 
-![Perceptex Banner](https://user-images.githubusercontent.com/your-banner.png)
-
 ---
 
 ## ✨ What is Perceptex?
