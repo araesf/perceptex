@@ -3,8 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #f472b6;
+  --secondary-dark: #db2777;
+  --success: #10b981;
+  --success-dark: #059669;
+  --background: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+}
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-indigo-50 via-white to-pink-50 min-h-screen;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-xl shadow-lg border border-gray-100/50 backdrop-blur-sm;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-600;
+  }
+
+  .gradient-border {
+    @apply relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-indigo-600 to-pink-600 -z-10;
+  }
+
+  .gradient-border::after {
+    content: '';
+    @apply absolute inset-[1px] rounded-xl bg-white -z-10;
+  }
 }
 
 @theme inline {

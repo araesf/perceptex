@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Perceptex
 
-## Getting Started
+> **AI-powered context that turns your digital clutter into structure.**
 
-First, run the development server:
+![Perceptex Banner](https://user-images.githubusercontent.com/your-banner.png)
+
+---
+
+## ✨ What is Perceptex?
+
+Perceptex is your second brain and scheduling co-pilot. It passively captures important context from your digital life (email, browser, docs, and more), uses AI to infer intent ("this should be a meeting"), and helps you act on it—at the right time.
+
+- **Inbox for your life:** See AI-generated suggestions and reminders in a beautiful, actionable inbox.
+- **Smart context capture:** Chrome extension, email, and more—no manual entry required.
+- **Approve, block, ignore:** One-click actions to turn suggestions into calendar events, reminders, or tasks.
+- **Syncs with your tools:** Google Calendar, and more coming soon.
+- **Modern, beautiful UI:** Built with Next.js, Tailwind, and ShadCN.
+
+---
+
+## 🚀 Tech Stack
+
+- **Frontend:** Next.js 15, React, Tailwind CSS, ShadCN UI
+- **Backend:** Next.js API routes, Prisma
+- **Database:** Neon Postgres
+- **AI Layer:** OpenAI/Claude (pluggable)
+- **Vector DB:** pgvector (optional, for semantic memory)
+- **Browser Extension:** Chrome (Manifest V3)
+
+---
+
+## 🛠️ Getting Started
 
 ```bash
+# Install dependencies
+npm install
+
+# Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🖥️ Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+perceptex/
+├── app/
+│   ├── dashboard/      # Dashboard UI
+│   ├── inbox/          # Inbox UI
+│   ├── components/     # Reusable UI components
+│   ├── lib/            # Mock data, notifications, utils
+│   └── ...
+├── prisma/             # Prisma schema & migrations
+├── public/             # Static assets
+├── next.config.js      # Next.js config
+└── ...
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 📨 **Inbox:** See and act on AI-generated suggestions
+- 🗓️ **Calendar Sync:** Block time, create events
+- 🔔 **Notifications:** Get notified of new context & suggestions
+- 🧩 **Extensible:** Add new context sources easily
+- 🎨 **Aesthetic UI:** Gradients, avatars, and smooth animations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧑‍💻 Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Pull requests are welcome! For major changes, open an issue first to discuss what you’d like to change.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📣 Credits
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [ShadCN UI](https://ui.shadcn.com/)
+- [DiceBear Avatars](https://dicebear.com/)
+- [Neon Postgres](https://neon.tech/)
+- [Prisma](https://prisma.io/)
+
+---
+
+## 🦄 License
+
+MIT
+
+---
+
+> _Perceptex: A quiet, smart assistant that understands what matters—and helps you act on it, at the right time._
