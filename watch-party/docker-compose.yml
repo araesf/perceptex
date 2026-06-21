@@ -5,11 +5,10 @@ services:
     image: mongo:7.0
     container_name: watchparty-mongo
     restart: unless-stopped
-    ports:
-      - "27017:27017"
+    # MongoDB port NOT exposed to host - only accessible on internal docker network
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
       - mongodb_data:/data/db
     networks:
@@ -23,9 +22,9 @@ services:
       - "5000:5000"
     environment:
       - NODE_ENV=production
-      - MONGODB_URI=mongodb://admin:password123@mongodb:27017/watchparty?authSource=admin
-      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
-      - CLIENT_URL=http://localhost:5000
+      - MONGODB_URI=mongodb://admin:${MONGO_PASSWORD}@mongodb:27017/watchparty?authSource=admin
+      - JWT_SECRET=${JWT_SECRET}
+      - CLIENT_URL=${CLIENT_URL:-http://localhost:5000}
     depends_on:
       - mongodb
     networks:

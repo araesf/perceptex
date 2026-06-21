@@ -16,3 +16,6 @@ build/
 *.swp
 *.swo
 *~
+
+# Server data files (contain user PII and credentials)
+watch-party/server/data.json

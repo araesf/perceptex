@@ -125,11 +125,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             {loading ? 'Loading...' : (isLogin ? 'Login' : 'Register')}
           </button>
         </form>
-
-        <div className="mt-6 text-center text-gray-400 text-sm">
-          <p>Demo credentials:</p>
-          <p>Email: demo@example.com | Password: demo123</p>
-        </div>
       </div>
     </div>
   );
